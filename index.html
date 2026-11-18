@@ -13,12 +13,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500&text=%E0%A7%B3&display=swap">
 <style>
 /* Hallmark · shape: project demo page (Workbench) · genre: modern-minimal · theme: Rim (preflight: preserved from simulator/index.html) · rim: night, accent NebuCoders violet (user brand)
  * nav: edge-aligned, logo + section links + one action · footer: contact strip · signature: the live simulator, running in the page
  * hero: the demo video beside the head · sections: hero, simulator, levels, build, code, downloads, footer · v2.0.0 */
-/* waive 19: the en dashes are numeric price ranges (৳580–950), not punctuation in prose */
 /* Hallmark · pre-emit critique: P4 H3 E3 S4 R3 V3 · weakest: R, Switzer is not on Google Fonts so Geist stands in, as in the simulator */
 
 /* Layout: one 1200px column; hero is head + video side by side, the simulator gets the full width, build is two ruled columns. */
@@ -37,8 +35,8 @@
   --color-led-green: oklch(78% 0.18 150); --color-led-yellow: oklch(88% 0.17 95); --color-led-red: oklch(65% 0.23 27);
   --color-diagram-bg: oklch(100% 0 0);
 
-  --font-display: "Switzer", "Geist", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
-  --font-mono: "Geist Mono", "Noto Sans Bengali", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --font-display: "Switzer", "Geist", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
   --tracking-display: -0.035em;
 }
 
@@ -188,7 +186,7 @@ pre .c { color: var(--color-muted-2); } pre .k { color: var(--color-accent-2); }
     <div class="wrap">
       <div class="hero-copy">
         <h1 id="hero-h">Know before the hillside moves.</h1>
-        <p class="lead">An Arduino that watches wet soil and ground tilt, for about ৳1,500.</p>
+        <p class="lead">An Arduino that watches wet soil and ground tilt, built from a handful of cheap parts.</p>
         <div class="actions">
           <a class="btn btn-primary" href="#simulator">Try the simulator</a>
           <a class="btn" href="firmware/landslide_warning/landslide_warning.ino" download>Get the code</a>
@@ -239,19 +237,17 @@ pre .c { color: var(--color-muted-2); } pre .k { color: var(--color-accent-2); }
       </div>
       <div class="build">
         <div>
-          <h3>Parts</h3>
+          <h3>Materials</h3>
           <div class="rows">
-            <div class="row"><span>Arduino Uno <span class="qty">× 1</span></span><span class="v">৳580–950</span></div>
-            <div class="row"><span>Capacitive soil moisture sensor v1.2 <span class="qty">× 1</span></span><span class="v">৳195–230</span></div>
-            <div class="row"><span>SW-520D tilt sensor <span class="qty">× 1</span></span><span class="v">৳30–150</span></div>
-            <div class="row"><span>LEDs, green, yellow, red <span class="qty">× 3</span></span><span class="v">৳10–15</span></div>
-            <div class="row"><span>220 Ω resistors <span class="qty">× 3</span></span><span class="v">৳5</span></div>
-            <div class="row"><span>Active buzzer, 5 V <span class="qty">× 1</span></span><span class="v">৳20–40</span></div>
-            <div class="row"><span>Breadboard and jumper wires</span><span class="v">৳200–300</span></div>
-            <div class="row"><span>USB cable or 9 V battery</span><span class="v">৳60–150</span></div>
-            <div class="row total"><span>Total</span><span class="v">৳1,100–1,850</span></div>
+            <div class="row"><span>Arduino Uno <span class="qty">× 1</span></span></div>
+            <div class="row"><span>Capacitive soil moisture sensor v1.2 <span class="qty">× 1</span></span></div>
+            <div class="row"><span>SW-520D tilt sensor <span class="qty">× 1</span></span></div>
+            <div class="row"><span>LEDs, green, yellow, red <span class="qty">× 3</span></span></div>
+            <div class="row"><span>220 Ω resistors <span class="qty">× 3</span></span></div>
+            <div class="row"><span>Active buzzer, 5 V <span class="qty">× 1</span></span></div>
+            <div class="row"><span>Breadboard and jumper wires <span class="qty">× 1 set</span></span></div>
+            <div class="row"><span>USB cable or 9 V battery <span class="qty">× 1</span></span></div>
           </div>
-          <p class="note">Typical Bangladeshi shop prices, November 2026.</p>
         </div>
         <div>
           <h3>Wiring</h3>
@@ -311,7 +307,7 @@ showLevel(level);   <span class="c">// LEDs on D8 to D10, buzzer on D11</span></
       <div class="section-head"><h2 id="dl-h">Downloads</h2></div>
       <div class="rows dl">
         <a class="row" href="docs/full-report.pdf"><span class="name">Full project report</span><span class="meta">PDF, 8 pages</span><span class="go">Open</span></a>
-        <a class="row" href="docs/components-list.pdf"><span class="name">Components list with prices</span><span class="meta">PDF, 1 page</span><span class="go">Open</span></a>
+        <a class="row" href="docs/components-list.pdf"><span class="name">Materials list</span><span class="meta">PDF, 1 page</span><span class="go">Open</span></a>
         <a class="row" href="media/demo.mp4"><span class="name">Demo video with buzzer sound</span><span class="meta">MP4, 46 s</span><span class="go">Open</span></a>
         <a class="row" href="hardware/circuit-diagram.svg"><span class="name">Circuit diagram</span><span class="meta">SVG</span><span class="go">Open</span></a>
         <a class="row" href="firmware/landslide_warning/landslide_warning.ino" download><span class="name">Arduino sketch</span><span class="meta">INO</span><span class="go">Download</span></a>

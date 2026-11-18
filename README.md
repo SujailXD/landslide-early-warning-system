@@ -11,7 +11,6 @@
 
 <p align="center">
   <img alt="Arduino Uno" src="https://img.shields.io/badge/Arduino-Uno-00878F?logo=arduino&logoColor=white">
-  <img alt="Cost" src="https://img.shields.io/badge/cost-%E0%A7%B31%2C100--1%2C850-5a48e8">
   <img alt="No soldering" src="https://img.shields.io/badge/soldering-not%20needed-6e8bff">
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-1c2230">
 </p>
@@ -53,21 +52,20 @@ Wet soil alone would set off the alarm on every rainy day, and movement alone ca
 
 <p align="center"><img src="media/screenshots/06-phone-danger.png" alt="Simulator on a phone" width="260"></p>
 
-## Components
+## Materials
 
-| # | Part | Qty | Price (BDT) |
-|---|---|---|---|
-| 1 | Arduino Uno (or Nano) | 1 | ৳580–950 |
-| 2 | Capacitive soil moisture sensor v1.2 | 1 | ৳195–230 |
-| 3 | SW-520D ball tilt sensor | 1 | ৳30–150 |
-| 4 | LEDs, 5 mm: green, yellow, red | 3 | ৳10–15 |
-| 5 | 220 Ω resistors | 3 | ৳5 |
-| 6 | Active buzzer, 5 V | 1 | ৳20–40 |
-| 7 | Breadboard + jumper wires | 1 set | ৳200–300 |
-| 8 | USB cable or 9 V battery + clip | 1 | ৳60–150 |
-| | **Total** | | **about ৳1,100–1,850** |
+| # | Part | Qty |
+|---|---|---|
+| 1 | Arduino Uno (or Nano) | 1 |
+| 2 | Capacitive soil moisture sensor v1.2 | 1 |
+| 3 | SW-520D ball tilt sensor | 1 |
+| 4 | LEDs, 5 mm: green, yellow, red | 3 |
+| 5 | 220 Ω resistors | 3 |
+| 6 | Active buzzer, 5 V | 1 |
+| 7 | Breadboard + jumper wires | 1 set |
+| 8 | USB cable or 9 V battery + clip | 1 |
 
-Prices are typical ranges from Bangladeshi electronics shops in November 2026 and change often. The full list is in [`docs/components-list.pdf`](docs/components-list.pdf).
+The same list is in [`docs/components-list.pdf`](docs/components-list.pdf).
 
 ## Wiring
 
@@ -110,7 +108,7 @@ The tilt sensor needs no resistor, because the code turns on the Arduino's inter
 ├── simulator/index.html                               Interactive browser simulator
 ├── hardware/circuit-diagram.svg                       Circuit diagram
 ├── docs/full-report.pdf                               Full project report (8 pages)
-├── docs/components-list.pdf                           Components list with prices
+├── docs/components-list.pdf                           Materials list
 ├── media/demo.mp4, demo.gif, screenshots/             Demo video and screenshots
 └── assets/                                            NebuCoders logo
 ```
