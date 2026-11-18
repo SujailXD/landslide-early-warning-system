@@ -22,7 +22,7 @@
 
 <p align="center"><a href="media/demo.mp4"><b>Watch the full demo video with sound (46 s)</b></a></p>
 
-<p align="center"><b>Live demo site:</b> turn on GitHub Pages (Settings → Pages → Deploy from branch → <code>main</code>, <code>/ (root)</code>) and the project page with the live simulator runs at <code>https://&lt;your-username&gt;.github.io/&lt;repo-name&gt;/</code></p>
+<p align="center"><b><a href="https://sujailxd.github.io/landslide-early-warning-system/">Open the live demo site and simulator</a></b></p>
 
 ---
 
@@ -99,7 +99,7 @@ The tilt sensor needs no resistor, because the code turns on the Arduino's inter
 
 ## Try it without hardware
 
-- **Interactive simulator:** open [`simulator/index.html`](simulator/index.html) in a browser. Press **Start rain** to run a storm, or drag the moisture and tilt sliders yourself. Turn on **Buzzer sound** to hear the alarm. If you enable GitHub Pages for this repo, the simulator runs online at `https://<your-username>.github.io/<repo-name>/simulator/`.
+- **Interactive simulator:** open [`simulator/index.html`](simulator/index.html) in a browser. Press **Start rain** to run a storm, or drag the moisture and tilt sliders yourself. Turn on **Buzzer sound** to hear the alarm. It also runs online at [sujailxd.github.io/landslide-early-warning-system/simulator](https://sujailxd.github.io/landslide-early-warning-system/simulator/).
 - **Wokwi:** open [wokwi.com/projects/new/arduino-uno](https://wokwi.com/projects/new/arduino-uno), paste [`wokwi/sketch.ino`](wokwi/sketch.ino) and [`wokwi/diagram.json`](wokwi/diagram.json) into their tabs, and press Play. A knob stands in for the moisture sensor and a slide switch for the tilt sensor.
 
 ## Project structure
@@ -125,7 +125,7 @@ The tilt sensor needs no resistor, because the code turns on the Arduino's inter
 
 ## Contact
 
-Built by **Sujail Bin Abdullah** · NebuCoders
+Built by **Sujail Bin Abdullah** ([@SujailXD](https://github.com/SujailXD)) · NebuCoders
 
 - WhatsApp: [+880 1759-230579](https://wa.me/8801759230579)
 - Instagram: [@sujail_abdullah](https://instagram.com/sujail_abdullah)
