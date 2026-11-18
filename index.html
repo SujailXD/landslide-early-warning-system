@@ -352,9 +352,10 @@ showLevel(level);   <span class="c">// LEDs on D8 to D10, buzzer on D11</span></
   // Fit the simulator frame to its content.
   var f = document.getElementById("sim");
   function fit() {
-    try { var h = f.contentDocument.documentElement.scrollHeight; if (h > 200) f.style.height = h + "px"; } catch (e) {}
+    try { var h = f.contentDocument.body.scrollHeight; if (h > 200) f.style.height = (h + 2) + "px"; } catch (e) {}
   }
   f.addEventListener("load", function () { fit(); setTimeout(fit, 600); });
+  try { if (f.contentDocument && f.contentDocument.readyState === "complete") fit(); } catch (e) {}
   window.addEventListener("resize", function () { setTimeout(fit, 150); });
 
   // On GitHub Pages, link back to the repository.
