@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 540" width="760" height="540" role="img" aria-label="Circuit diagram of the landslide warning system">
+  <style>text{font-family:"JetBrains Mono",Consolas,"DejaVu Sans Mono",monospace}</style>
+  <rect width="760" height="540" fill="#ffffff"/>
+      <!-- wires first -->
+      <!-- moisture sensor -->
+      <line x1="210" y1="110" x2="300" y2="110" stroke="#c62828" stroke-width="2.5"/>
+      <line x1="210" y1="150" x2="300" y2="150" stroke="#1c2230" stroke-width="2.5"/>
+      <line x1="210" y1="200" x2="300" y2="200" stroke="#1d4ed8" stroke-width="2.5"/>
+      <!-- tilt -->
+      <line x1="210" y1="320" x2="300" y2="320" stroke="#1d4ed8" stroke-width="2.5"/>
+      <line x1="210" y1="370" x2="300" y2="370" stroke="#1c2230" stroke-width="2.5"/>
+      <!-- LEDs -->
+      <g stroke="#c2410c" stroke-width="2.5" fill="none">
+        <line x1="480" y1="130" x2="520" y2="130"/><line x1="580" y1="130" x2="616" y2="130"/>
+        <line x1="480" y1="200" x2="520" y2="200"/><line x1="580" y1="200" x2="616" y2="200"/>
+        <line x1="480" y1="270" x2="520" y2="270"/><line x1="580" y1="270" x2="616" y2="270"/>
+      </g>
+      <g stroke="#1c2230" stroke-width="2.5" fill="none">
+        <line x1="644" y1="130" x2="710" y2="130"/>
+        <line x1="644" y1="200" x2="710" y2="200"/>
+        <line x1="644" y1="270" x2="710" y2="270"/>
+        <line x1="644" y1="350" x2="710" y2="350"/>
+        <line x1="480" y1="440" x2="710" y2="440"/>
+        <line x1="710" y1="130" x2="710" y2="440"/>
+      </g>
+      <line x1="480" y1="350" x2="602" y2="350" stroke="#7c3aed" stroke-width="2.5"/>
+      <!-- resistors (zigzag) -->
+      <g fill="none" stroke="#1c2230" stroke-width="2">
+        <polyline points="520,130 527,122 537,138 547,122 557,138 567,122 573,130 580,130"/>
+        <polyline points="520,200 527,192 537,208 547,192 557,208 567,192 573,200 580,200"/>
+        <polyline points="520,270 527,262 537,278 547,262 557,278 567,262 573,270 580,270"/>
+      </g>
+      <g font-size="10" fill="#6b7280">
+        <text x="531" y="114">220Ω</text><text x="531" y="184">220Ω</text><text x="531" y="254">220Ω</text>
+      </g>
+      <!-- LEDs (diode symbols) -->
+      <g stroke="#1c2230" stroke-width="1.6">
+        <path d="M616 118 L640 130 L616 142 Z" fill="#22a65a"/><line x1="642" y1="117" x2="642" y2="143"/>
+        <path d="M616 188 L640 200 L616 212 Z" fill="#e5b200"/><line x1="642" y1="187" x2="642" y2="213"/>
+        <path d="M616 258 L640 270 L616 282 Z" fill="#d42f2f"/><line x1="642" y1="257" x2="642" y2="283"/>
+      </g>
+      <g font-size="10" fill="#3a4252">
+        <text x="606" y="160">GREEN</text><text x="604" y="230">YELLOW</text><text x="612" y="300">RED</text>
+      </g>
+      <!-- buzzer -->
+      <circle cx="623" cy="350" r="21" fill="#fff" stroke="#1c2230" stroke-width="2"/>
+      <text x="611" y="354" font-size="11" font-weight="600" fill="#1c2230">BZ</text>
+      <text x="598" y="388" font-size="10" fill="#3a4252">BUZZER</text>
+      <text x="604" y="342" font-size="10" fill="#1c2230">+</text>
+      <text x="716" y="290" font-size="10" fill="#1c2230">GND</text>
+
+      <!-- Arduino -->
+      <rect x="300" y="60" width="180" height="420" fill="#e8f1f4" stroke="#1c2230" stroke-width="2"/>
+      <text x="390" y="88" font-size="14" font-weight="700" fill="#1c2230" text-anchor="middle">ARDUINO</text>
+      <text x="390" y="104" font-size="12" font-weight="600" fill="#1c2230" text-anchor="middle">UNO</text>
+      <g font-size="11" font-weight="600" fill="#1c2230">
+        <text x="310" y="114">5V</text><text x="310" y="154">GND</text><text x="310" y="204">A0</text>
+        <text x="310" y="324">D2</text><text x="310" y="374">GND</text>
+        <text x="470" y="134" text-anchor="end">D8</text><text x="470" y="204" text-anchor="end">D9</text>
+        <text x="470" y="274" text-anchor="end">D10</text><text x="470" y="354" text-anchor="end">D11</text>
+        <text x="470" y="444" text-anchor="end">GND</text>
+      </g>
+      <g fill="#1c2230">
+        <rect x="296" y="106" width="8" height="8"/><rect x="296" y="146" width="8" height="8"/><rect x="296" y="196" width="8" height="8"/>
+        <rect x="296" y="316" width="8" height="8"/><rect x="296" y="366" width="8" height="8"/>
+        <rect x="476" y="126" width="8" height="8"/><rect x="476" y="196" width="8" height="8"/><rect x="476" y="266" width="8" height="8"/>
+        <rect x="476" y="346" width="8" height="8"/><rect x="476" y="436" width="8" height="8"/>
+      </g>
+
+      <!-- Moisture sensor module -->
+      <rect x="40" y="80" width="170" height="150" fill="#fff" stroke="#1c2230" stroke-width="2"/>
+      <text x="52" y="102" font-size="11" font-weight="700" fill="#1c2230">SOIL MOISTURE</text>
+      <text x="52" y="116" font-size="9" fill="#6b7280">capacitive v1.2</text>
+      <g font-size="10" font-weight="600" fill="#1c2230">
+        <text x="200" y="114" text-anchor="end">VCC</text><text x="200" y="154" text-anchor="end">GND</text><text x="200" y="204" text-anchor="end">AOUT</text>
+      </g>
+      <path d="M60 140 L60 214 L74 224 L88 214 L88 140 Z" fill="#2d3a2e" stroke="#1c2230"/>
+      <text x="96" y="218" font-size="9" fill="#6b7280">probe in soil</text>
+      <!-- Tilt sensor -->
+      <rect x="40" y="290" width="170" height="110" fill="#fff" stroke="#1c2230" stroke-width="2"/>
+      <text x="52" y="312" font-size="11" font-weight="700" fill="#1c2230">TILT SENSOR</text>
+      <text x="52" y="326" font-size="9" fill="#6b7280">SW-520D ball switch</text>
+      <g font-size="10" font-weight="600" fill="#1c2230">
+        <text x="200" y="324" text-anchor="end">SIG</text><text x="200" y="374" text-anchor="end">GND</text>
+      </g>
+      <rect x="62" y="340" width="22" height="44" fill="#e5e7eb" stroke="#1c2230"/>
+      <circle cx="73" cy="372" r="7" fill="#9ca3af" stroke="#1c2230"/>
+      <text x="92" y="366" font-size="9" fill="#6b7280">on pole</text>
+
+      <!-- legend -->
+      <g font-size="10" fill="#3a4252">
+        <line x1="40" y1="512" x2="64" y2="512" stroke="#c62828" stroke-width="3"/><text x="70" y="516">5V power</text>
+        <line x1="160" y1="512" x2="184" y2="512" stroke="#1c2230" stroke-width="3"/><text x="190" y="516">ground</text>
+        <line x1="270" y1="512" x2="294" y2="512" stroke="#1d4ed8" stroke-width="3"/><text x="300" y="516">sensor signal</text>
+        <line x1="420" y1="512" x2="444" y2="512" stroke="#c2410c" stroke-width="3"/><text x="450" y="516">LED output</text>
+        <line x1="560" y1="512" x2="584" y2="512" stroke="#7c3aed" stroke-width="3"/><text x="590" y="516">buzzer output</text>
+      </g>
+    </svg>

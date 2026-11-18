@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Landslide Early Warning System</title>
+<meta name="description" content="A low-cost Arduino landslide early warning system that watches soil moisture and ground tilt. Try the live simulator, see the wiring, and download the code.">
+<meta name="theme-color" content="#0f0e0c">
+<meta property="og:title" content="Landslide Early Warning System">
+<meta property="og:description" content="A low-cost Arduino that watches wet soil and ground tilt, with a live browser simulator.">
+<meta property="og:image" content="media/screenshots/04-danger-landslide.png">
+<link rel="icon" href="assets/nebucoders-logo-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500&text=%E0%A7%B3&display=swap">
+<style>
+/* Hallmark · shape: project demo page (Workbench) · genre: modern-minimal · theme: Rim (preflight: preserved from simulator/index.html) · rim: night, accent NebuCoders violet (user brand)
+ * nav: edge-aligned, logo + section links + one action · footer: contact strip · signature: the live simulator, running in the page
+ * hero: the demo video beside the head · sections: hero, simulator, levels, build, code, downloads, footer · v2.0.0 */
+/* waive 19: the en dashes are numeric price ranges (৳580–950), not punctuation in prose */
+/* Hallmark · pre-emit critique: P4 H3 E3 S4 R3 V3 · weakest: R, Switzer is not on Google Fonts so Geist stands in, as in the simulator */
+
+/* Layout: one 1200px column; hero is head + video side by side, the simulator gets the full width, build is two ruled columns. */
+:root {
+  color-scheme: dark;
+  --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px;
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.2rem; --text-xl: 1.5rem; --text-2xl: 2rem; --text-display: clamp(2.4rem, 5.2vw, 4rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 120ms; --dur-short: 220ms;
+  --container: 1200px;
+
+  --color-paper: oklch(9% 0.008 75); --color-paper-2: oklch(12.5% 0.009 75); --color-paper-3: oklch(6.5% 0.007 75);
+  --color-ink: oklch(94% 0.010 80); --color-ink-2: oklch(84% 0.011 80); --color-muted: oklch(68% 0.012 80); --color-muted-2: oklch(50% 0.010 80);
+  --color-rule: oklch(25% 0.010 78); --color-rule-2: oklch(16% 0.009 78);
+  --color-accent: oklch(54% 0.22 280); --color-accent-hover: oklch(48% 0.22 280); --color-accent-ink: oklch(99% 0.005 280); --color-accent-2: oklch(74% 0.12 255); --color-focus: oklch(74% 0.16 280);
+  --color-led-green: oklch(78% 0.18 150); --color-led-yellow: oklch(88% 0.17 95); --color-led-red: oklch(65% 0.23 27);
+  --color-diagram-bg: oklch(100% 0 0);
+
+  --font-display: "Switzer", "Geist", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
+  --font-mono: "Geist Mono", "Noto Sans Bengali", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --tracking-display: -0.035em;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; scrollbar-color: var(--color-muted-2) var(--color-paper); }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.6; -webkit-font-smoothing: antialiased; caret-color: var(--color-accent); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--color-paper); }
+::selection { background: color-mix(in oklab, var(--color-accent) 40%, transparent); color: var(--color-ink); }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1.05; text-wrap: balance; overflow-wrap: break-word; min-width: 0; }
+h1 { font-size: var(--text-display); max-width: 14ch; }
+h2 { font-size: var(--text-2xl); letter-spacing: -0.03em; }
+h3 { font-size: var(--text-lg); letter-spacing: -0.02em; }
+p { margin: 0; text-wrap: pretty; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+img, video, iframe { max-width: 100%; display: block; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+[hidden] { display: none !important; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.wrap { max-width: var(--container); margin-inline: auto; padding-left: max(var(--space-md), env(safe-area-inset-left, 0px)); padding-right: max(var(--space-md), env(safe-area-inset-right, 0px)); }
+.section { padding-block: var(--space-3xl); border-top: 1px solid var(--color-rule); }
+.section-head { display: grid; gap: var(--space-sm); margin-bottom: var(--space-xl); max-width: 40rem; }
+.section-head p { color: var(--color-ink-2); }
+
+/* buttons: one filled primary, one outlined secondary */
+.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-lg); font-weight: 500; font-size: var(--text-sm); text-decoration: none; border: 1px solid var(--color-rule); color: var(--color-ink); background: transparent; cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out); }
+.btn:hover { border-color: var(--color-muted); background: var(--color-paper-2); }
+.btn:active { background: var(--color-rule-2); }
+.btn-primary { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+.btn-primary:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary:active { background: var(--color-accent); }
+
+/* nav */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--color-paper); border-bottom: 1px solid var(--color-rule); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); min-height: 64px; }
+.nav img { height: 26px; width: auto; }
+.nav-links { display: flex; align-items: center; gap: var(--space-lg); font-size: var(--text-sm); }
+.nav-links a:not(.btn) { color: var(--color-ink-2); text-decoration: none; padding-block: var(--space-xs); }
+.nav-links a:not(.btn):hover { color: var(--color-ink); text-decoration: underline; }
+.nav-links .btn { min-height: 40px; padding: 0 var(--space-md); }
+@media (max-width: 52rem) { .nav-links a:not(.btn) { display: none; } }
+
+/* hero */
+.hero { padding-block: var(--space-2xl) var(--space-3xl); }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: var(--space-2xl); align-items: center; }
+.hero-copy { display: grid; gap: var(--space-lg); justify-items: start; }
+.hero-copy .lead { font-size: var(--text-lg); color: var(--color-ink-2); max-width: 30ch; line-height: 1.45; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+.hero-video { border: 1px solid var(--color-rule); background: var(--color-paper-3); color: var(--color-ink); }
+.hero-video video { width: 100%; height: auto; aspect-ratio: 1280 / 864; }
+.hero-video figcaption { display: flex; justify-content: space-between; gap: var(--space-sm); flex-wrap: wrap; padding: var(--space-xs) var(--space-sm); font-size: var(--text-xs); color: var(--color-muted); border-top: 1px solid var(--color-rule); }
+@media (max-width: 60rem) { .hero .wrap { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); } h1 { max-width: 16ch; } }
+
+/* live simulator */
+.sim-frame { border: 1px solid var(--color-rule); background: var(--color-paper-3); }
+.sim-frame iframe { width: 100%; height: 1000px; border: 0; }
+.sim-bar { display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm); flex-wrap: wrap; padding: var(--space-xs) var(--space-sm); border-bottom: 1px solid var(--color-rule); font-size: var(--text-sm); color: var(--color-muted); }
+
+/* levels */
+.levels { border-top: 1px solid var(--color-rule); }
+.level-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--space-md); align-items: center; padding-block: var(--space-md); border-bottom: 1px solid var(--color-rule-2); }
+.level-row.head { color: var(--color-muted); font-size: var(--text-sm); font-weight: 500; border-bottom-color: var(--color-rule); padding-block: var(--space-sm); }
+.state { display: inline-flex; align-items: center; gap: var(--space-xs); font-weight: 500; }
+.state::before { content: ""; width: 12px; height: 12px; flex: none; background: var(--sw); }
+.state.safe { --sw: var(--color-led-green); } .state.warn { --sw: var(--color-led-yellow); } .state.danger { --sw: var(--color-led-red); }
+@media (max-width: 40rem) {
+  .level-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); row-gap: var(--space-2xs); }
+  .level-row.head { display: none; }
+  .level-row > :nth-child(3) { grid-row: 1; grid-column: 1 / -1; }
+}
+.why { margin-top: var(--space-xl); max-width: 40rem; color: var(--color-ink-2); }
+
+/* build */
+.build { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-2xl); }
+@media (max-width: 60rem) { .build { grid-template-columns: minmax(0, 1fr); } }
+.rows { border-top: 1px solid var(--color-rule); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-md); padding-block: var(--space-sm); border-bottom: 1px solid var(--color-rule-2); align-items: baseline; }
+.row .qty { color: var(--color-muted); font-size: var(--text-sm); }
+.row.total { border-bottom-color: var(--color-rule); font-weight: 500; }
+.row .v { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row.three { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
+.build h3 { margin-bottom: var(--space-md); }
+.note { color: var(--color-muted); font-size: var(--text-sm); margin-top: var(--space-sm); max-width: 38rem; }
+.diagram { margin: var(--space-2xl) 0 0; border: 1px solid var(--color-rule); }
+.diagram-scroll { overflow-x: auto; background: var(--color-diagram-bg); }
+.diagram img { min-width: 640px; width: 100%; height: auto; }
+.diagram figcaption { padding: var(--space-xs) var(--space-sm); font-size: var(--text-xs); color: var(--color-muted); border-top: 1px solid var(--color-rule); }
+
+/* code */
+.code { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: var(--space-2xl); align-items: start; }
+@media (max-width: 60rem) { .code { grid-template-columns: minmax(0, 1fr); } }
+pre { margin: 0; padding: var(--space-lg); background: var(--color-paper-3); border: 1px solid var(--color-rule); overflow-x: auto; font-family: var(--font-mono); font-size: var(--text-sm); line-height: 1.65; color: var(--color-ink-2); }
+pre .c { color: var(--color-muted-2); } pre .k { color: var(--color-accent-2); } pre .s { color: var(--color-led-yellow); }
+.steps { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-md); counter-reset: step; }
+.steps li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: var(--space-sm); color: var(--color-ink-2); counter-increment: step; }
+.steps li::before { content: counter(step); font-family: var(--font-mono); color: var(--color-muted); }
+.steps code { font-family: var(--font-mono); font-size: 0.92em; color: var(--color-ink); }
+
+/* downloads */
+.dl a { text-decoration: none; }
+.dl .row { grid-template-columns: minmax(0, 1fr) auto auto; padding-block: var(--space-md); }
+.dl .row:hover { background: var(--color-paper-2); }
+.dl .name { font-weight: 500; }
+.dl .meta { color: var(--color-muted); font-size: var(--text-sm); }
+.dl .go { color: var(--color-focus); font-size: var(--text-sm); }
+@media (max-width: 40rem) { .dl .row { grid-template-columns: minmax(0, 1fr) auto; } .dl .meta { grid-column: 1; grid-row: 2; } }
+
+/* footer */
+.foot { border-top: 1px solid var(--color-rule); background: var(--color-paper-3); }
+.foot .wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-lg) var(--space-2xl); padding-block: var(--space-xl) calc(var(--space-xl) + env(safe-area-inset-bottom, 0px)); align-items: start; }
+.foot img { height: 26px; width: auto; }
+.foot-cols { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-2xl); justify-content: flex-end; font-size: var(--text-sm); }
+.foot-cols div { display: grid; gap: var(--space-2xs); }
+.foot-cols span { color: var(--color-muted); }
+.foot-cols a { color: var(--color-ink); }
+.foot .base { grid-column: 1 / -1; padding-top: var(--space-md); border-top: 1px solid var(--color-rule-2); font-size: var(--text-xs); color: var(--color-muted); }
+@media (max-width: 48rem) { .foot .wrap { grid-template-columns: minmax(0, 1fr); } .foot-cols { justify-content: flex-start; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#top" aria-label="Landslide Early Warning System, back to top"><img src="assets/nebucoders-logo-dark.png" alt="NebuCoders" width="124" height="26"></a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#simulator">Simulator</a>
+      <a href="#how">How it works</a>
+      <a href="#build">Build it</a>
+      <a href="#code">Code</a>
+      <a href="#downloads">Downloads</a>
+      <a class="btn" id="gh-link" href="#downloads" hidden>GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="hero-copy">
+        <h1 id="hero-h">Know before the hillside moves.</h1>
+        <p class="lead">An Arduino that watches wet soil and ground tilt, for about ৳1,500.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#simulator">Try the simulator</a>
+          <a class="btn" href="firmware/landslide_warning/landslide_warning.ino" download>Get the code</a>
+        </div>
+      </div>
+      <figure class="hero-video" style="margin:0">
+        <video id="demo" src="media/demo.mp4" poster="media/screenshots/04-danger-landslide.png" muted loop playsinline preload="metadata" width="1280" height="864" aria-label="Demo: rain soaks the slope, the light turns yellow, the pole tilts and the alarm turns red"></video>
+        <figcaption><span>Storm demo, 46 s</span><button class="btn" id="sound" type="button" aria-pressed="false" style="min-height:32px;padding:0 12px">Play with sound</button></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="simulator" aria-labelledby="sim-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="sim-h">Run a storm yourself</h2>
+        <p>Press Start rain, or drag the moisture and tilt sliders. It runs the same rules as the Arduino code.</p>
+      </div>
+      <div class="sim-frame">
+        <div class="sim-bar"><span>Live simulator</span><a href="simulator/index.html" target="_blank" rel="noopener">Open full screen</a></div>
+        <iframe id="sim" src="simulator/index.html" title="Landslide monitor simulator" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="how-h">Two sensors, three levels</h2>
+        <p>A probe in the soil measures water. A tilt switch on a pole in the slope trips when the ground moves.</p>
+      </div>
+      <div class="levels" role="table" aria-label="Warning levels">
+        <div class="level-row head" role="row"><span role="columnheader">Soil moisture</span><span role="columnheader">Pole</span><span role="columnheader">Level</span><span role="columnheader">Output</span></div>
+        <div class="level-row" role="row"><span role="cell">Below 70%</span><span role="cell">Upright</span><span role="cell" class="state safe">Safe</span><span role="cell">Green LED</span></div>
+        <div class="level-row" role="row"><span role="cell">70% or more</span><span role="cell">Upright</span><span role="cell" class="state warn">Warning</span><span role="cell">Yellow LED, short beeps</span></div>
+        <div class="level-row" role="row"><span role="cell">Below 70%</span><span role="cell">Tilted</span><span role="cell" class="state warn">Warning</span><span role="cell">Yellow LED, short beeps</span></div>
+        <div class="level-row" role="row"><span role="cell">70% or more</span><span role="cell">Tilted</span><span role="cell" class="state danger">Danger</span><span role="cell">Red LED, continuous alarm</span></div>
+      </div>
+      <p class="why">Wet soil alone would raise the alarm every rainy day, and movement alone can come too late. Wet soil warns early; movement confirms it.</p>
+    </div>
+  </section>
+
+  <section class="section" id="build" aria-labelledby="build-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="build-h">Build it on a breadboard</h2>
+        <p>No soldering. Parts are sold in most Bangladeshi electronics shops.</p>
+      </div>
+      <div class="build">
+        <div>
+          <h3>Parts</h3>
+          <div class="rows">
+            <div class="row"><span>Arduino Uno <span class="qty">× 1</span></span><span class="v">৳580–950</span></div>
+            <div class="row"><span>Capacitive soil moisture sensor v1.2 <span class="qty">× 1</span></span><span class="v">৳195–230</span></div>
+            <div class="row"><span>SW-520D tilt sensor <span class="qty">× 1</span></span><span class="v">৳30–150</span></div>
+            <div class="row"><span>LEDs, green, yellow, red <span class="qty">× 3</span></span><span class="v">৳10–15</span></div>
+            <div class="row"><span>220 Ω resistors <span class="qty">× 3</span></span><span class="v">৳5</span></div>
+            <div class="row"><span>Active buzzer, 5 V <span class="qty">× 1</span></span><span class="v">৳20–40</span></div>
+            <div class="row"><span>Breadboard and jumper wires</span><span class="v">৳200–300</span></div>
+            <div class="row"><span>USB cable or 9 V battery</span><span class="v">৳60–150</span></div>
+            <div class="row total"><span>Total</span><span class="v">৳1,100–1,850</span></div>
+          </div>
+          <p class="note">Typical Bangladeshi shop prices, November 2026.</p>
+        </div>
+        <div>
+          <h3>Wiring</h3>
+          <div class="rows">
+            <div class="row three"><span>Moisture sensor</span><span class="mono">AOUT</span><span class="v">A0</span></div>
+            <div class="row three"><span>Tilt sensor</span><span class="mono">leg 1</span><span class="v">D2</span></div>
+            <div class="row three"><span>Green LED + 220 Ω</span><span class="mono">long leg</span><span class="v">D8</span></div>
+            <div class="row three"><span>Yellow LED + 220 Ω</span><span class="mono">long leg</span><span class="v">D9</span></div>
+            <div class="row three"><span>Red LED + 220 Ω</span><span class="mono">long leg</span><span class="v">D10</span></div>
+            <div class="row three"><span>Buzzer</span><span class="mono">+</span><span class="v">D11</span></div>
+            <div class="row three"><span>Sensor power</span><span class="mono">VCC</span><span class="v">5V</span></div>
+            <div class="row three"><span>Everything else</span><span class="mono">GND, −</span><span class="v">GND</span></div>
+          </div>
+          <p class="note">The tilt sensor needs no resistor: the code turns on the Arduino’s internal pull-up.</p>
+        </div>
+      </div>
+      <figure class="diagram">
+        <div class="diagram-scroll"><img src="hardware/circuit-diagram.svg" alt="Circuit diagram: moisture sensor to A0, tilt sensor to D2, LEDs through 220 ohm resistors to D8, D9 and D10, buzzer to D11, all grounds joined." width="760" height="540" loading="lazy"></div>
+        <figcaption>Circuit diagram. All grounds join on the breadboard’s GND rail.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="code" aria-labelledby="code-h">
+    <div class="wrap code">
+      <div>
+        <div class="section-head" style="margin-bottom:var(--space-lg)">
+          <h2 id="code-h">The decision, in five lines</h2>
+        </div>
+<pre><code><span class="k">bool</span> wet = moisture &gt;= WET_LIMIT;   <span class="c">// 70%</span>
+
+RiskLevel level = SAFE;
+<span class="k">if</span> (wet &amp;&amp; tilted)      level = DANGER;
+<span class="k">else if</span> (wet || tilted) level = WARNING;
+
+showLevel(level);   <span class="c">// LEDs on D8 to D10, buzzer on D11</span></code></pre>
+      </div>
+      <div>
+        <h3 style="margin-bottom:var(--space-md)">Upload it</h3>
+        <ol class="steps">
+          <li><span>Open <code>landslide_warning.ino</code> in the Arduino IDE.</span></li>
+          <li><span>Pick <code>Arduino Uno</code> and its port, then Upload.</span></li>
+          <li><span>Open the Serial Monitor at <code>9600</code> baud.</span></li>
+          <li><span>Put your dry and wet readings in <code>DRY_VALUE</code> and <code>WET_VALUE</code>.</span></li>
+        </ol>
+        <div class="actions" style="margin-top:var(--space-lg)">
+          <a class="btn" href="firmware/landslide_warning/landslide_warning.ino" download>Download the sketch</a>
+          <a class="btn" href="https://wokwi.com/projects/new/arduino-uno" target="_blank" rel="noopener">Open Wokwi</a>
+        </div>
+        <p class="note">For Wokwi, paste <code>wokwi/sketch.ino</code> and <code>wokwi/diagram.json</code> into its tabs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="downloads" aria-labelledby="dl-h">
+    <div class="wrap">
+      <div class="section-head"><h2 id="dl-h">Downloads</h2></div>
+      <div class="rows dl">
+        <a class="row" href="docs/full-report.pdf"><span class="name">Full project report</span><span class="meta">PDF, 8 pages</span><span class="go">Open</span></a>
+        <a class="row" href="docs/components-list.pdf"><span class="name">Components list with prices</span><span class="meta">PDF, 1 page</span><span class="go">Open</span></a>
+        <a class="row" href="media/demo.mp4"><span class="name">Demo video with buzzer sound</span><span class="meta">MP4, 46 s</span><span class="go">Open</span></a>
+        <a class="row" href="hardware/circuit-diagram.svg"><span class="name">Circuit diagram</span><span class="meta">SVG</span><span class="go">Open</span></a>
+        <a class="row" href="firmware/landslide_warning/landslide_warning.ino" download><span class="name">Arduino sketch</span><span class="meta">INO</span><span class="go">Download</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <img src="assets/nebucoders-logo-dark.png" alt="NebuCoders" width="124" height="26">
+    <div class="foot-cols">
+      <div><span>Built by</span><b style="font-weight:500">Sujail Bin Abdullah</b></div>
+      <div><span>WhatsApp</span><a href="https://wa.me/8801759230579" class="mono">+880 1759-230579</a></div>
+      <div><span>Instagram</span><a href="https://instagram.com/sujail_abdullah">@sujail_abdullah</a></div>
+    </div>
+    <p class="base">Low-Cost Landslide Early Warning System. Released under the MIT License.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Autoplay the demo muted, unless the visitor prefers reduced motion.
+  var v = document.getElementById("demo");
+  var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!still) { v.autoplay = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+  else { v.controls = true; }
+
+  var s = document.getElementById("sound");
+  s.addEventListener("click", function () {
+    var on = s.getAttribute("aria-pressed") !== "true";
+    v.muted = !on;
+    if (on) { v.currentTime = 0; v.play(); }
+    s.setAttribute("aria-pressed", String(on));
+    s.textContent = on ? "Mute" : "Play with sound";
+  });
+
+  // Fit the simulator frame to its content.
+  var f = document.getElementById("sim");
+  function fit() {
+    try { var h = f.contentDocument.documentElement.scrollHeight; if (h > 200) f.style.height = h + "px"; } catch (e) {}
+  }
+  f.addEventListener("load", function () { fit(); setTimeout(fit, 600); });
+  window.addEventListener("resize", function () { setTimeout(fit, 150); });
+
+  // On GitHub Pages, link back to the repository.
+  var m = location.hostname.match(/^([^.]+)\.github\.io$/);
+  if (m) {
+    var repo = location.pathname.split("/").filter(Boolean)[0];
+    var a = document.getElementById("gh-link");
+    a.href = "https://github.com/" + m[1] + (repo ? "/" + repo : "");
+    a.hidden = false;
+  }
+})();
+</script>
+</body>
+</html>
